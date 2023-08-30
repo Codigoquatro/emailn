@@ -2,6 +2,7 @@ package campaign
 
 import (
 	"emailn/internal/contract"
+	"errors"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -17,14 +18,18 @@ func (r *repositoryMock) Save(campaign *Campaign) error {
 	return args.Error(0)
 }
 
-func Test_Create_Campaign(t *testing.T) {
-	assert := assert.New(t)
-	service := Service{}
-	newCampaing := contract.NewCampaingn{
+var (
+	newCampaing = contract.NewCampaingn{
 		Name:    "Test Y",
 		Content: "Body",
 		Emails:  []string{"alves@gmail.com"},
 	}
+	service = Service{}
+)
+
+func Test_Create_Campaign(t *testing.T) {
+	assert := assert.New(t)
+	service := Service{}
 
 	id, err := service.Create(newCampaing)
 
@@ -33,20 +38,25 @@ func Test_Create_Campaign(t *testing.T) {
 
 }
 
+func Test_Create_ValidateDomainError(t *testing.T) {
+	assert := assert.New(t)
+
+	newCampaing.Name = ""
+
+	_, err := service.Create(newCampaing)
+
+	assert.NotNil(err)
+	assert.Equal("name is required", err.Error())
+
+}
+
 func Test_Create_SaveCampaign(t *testing.T) {
 
-	newCampaing := contract.NewCampaingn{
-		Name:    "Test Y",
-		Content: "Body",
-		Emails:  []string{"alves@gmail.com"},
-	}
 	repositoryMock := new(repositoryMock)
 	repositoryMock.On("Save", mock.MatchedBy(func(campaign *Campaign) bool {
-		if campaign.Name != newCampaing.Name {
-			return false
-		} else if campaign.Content != newCampaing.Content {
-			return false
-		} else if len(campaign.Contacts) != len(newCampaing.Emails) {
+		if campaign.Name != newCampaing.Name ||
+			campaign.Content != newCampaing.Content ||
+			len(campaign.Contacts) != len(newCampaing.Emails) {
 			return false
 		}
 		return true
@@ -56,5 +66,18 @@ func Test_Create_SaveCampaign(t *testing.T) {
 	service.Create(newCampaing)
 
 	repositoryMock.AssertExpectations(t)
+
+}
+
+func Test_Create_ValidateRepositorySave(t *testing.T) {
+	assert := assert.New(t)
+
+	repositoryMock := new(repositoryMock)
+	repositoryMock.On("Save", mock.Anything).Return(errors.New("error to save on database"))
+	service.Repository = repositoryMock
+
+	_, err := service.Create(newCampaing)
+
+	assert.Equal("error to save on database", err.Error())
 
 }
