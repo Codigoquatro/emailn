@@ -1,0 +1,9 @@
+
+POST http://localhost:5000/campaigns
+
+{
+    "name":"mouse",
+    "content":"change password",
+    "emails":["alves@gmail.com"]
+
+}
