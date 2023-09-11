@@ -29,7 +29,7 @@ var (
 		Content: "Body Hi!",
 		Emails:  []string{"alves@gmail.com"},
 	}
-	service = Service{}
+	service = ServiceImp{}
 )
 
 func Test_Create_Campaign(t *testing.T) {
@@ -65,7 +65,7 @@ func Test_Create_SaveCampaign(t *testing.T) {
 		}
 		return true
 	})).Return(nil)
-	service := Service{Repository: repositoryMock}
+	service.Repository = repositoryMock
 
 	service.Create(newCampaing)
 
