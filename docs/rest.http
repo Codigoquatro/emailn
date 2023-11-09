@@ -2,12 +2,11 @@
 POST http://localhost:5000/campaigns
 
 {
-    "name":"teclado1256",
-    "content":"change password",
-    "emails":["alves@gmail.com"]
-
+    "name":"mouse56",
+    "content":"skkskr235",
+    "emails":["alves74@gmail.com"]  
 }
 
 ###
 
-GET  http://localhost:5000/campaigns
+GET  http://localhost:5000/campaigns/cl5rq43ba696umhmed8g
