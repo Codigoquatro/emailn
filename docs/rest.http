@@ -2,17 +2,17 @@
 POST http://localhost:5000/campaigns
 
 {
-    "name":"Teclado56",
-    "content":"testes",
-    "emails":["alves@gmail.com"]  
+    "name":"Teclado Mecanico",
+    "content":"testeproduto",
+    "emails":["cliente1@gmail.com"]  
 }
 
 ###
 
-GET  http://localhost:5000/campaigns/cl6i37jba694mjbecqp0
+GET  http://localhost:5000/campaigns/cl92mr3ba6974njid
 
 ###
-PATCH http://localhost:5000/campaigns/cancel/cl6i37jba694mjbecqp0
+PATCH http://localhost:5000/campaigns/cancel/cl92mr3ba6974njid6ng
 
 ###
-DELETE http://localhost:5000/campaigns/delete/cl6i37jba694mjbecqp0
+DELETE http://localhost:5000/campaigns/delete/cl92mr3ba6974njid6ng
