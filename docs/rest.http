@@ -2,11 +2,17 @@
 POST http://localhost:5000/campaigns
 
 {
-    "name":"mouse56",
-    "content":"skkskr235",
-    "emails":["alves74@gmail.com"]  
+    "name":"Teclado56",
+    "content":"testes",
+    "emails":["alves@gmail.com"]  
 }
 
 ###
 
-GET  http://localhost:5000/campaigns/cl5rq43ba696umhmed8g
+GET  http://localhost:5000/campaigns/cl6i37jba694mjbecqp0
+
+###
+PATCH http://localhost:5000/campaigns/cancel/cl6i37jba694mjbecqp0
+
+###
+DELETE http://localhost:5000/campaigns/delete/cl6i37jba694mjbecqp0
